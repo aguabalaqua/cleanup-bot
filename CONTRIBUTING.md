@@ -1,3 +1,5 @@
+Please read these guidelines before submitting issues or pull requests.
+
 # Contributing
 
 Thank you for your interest in contributing to CLEANER.
