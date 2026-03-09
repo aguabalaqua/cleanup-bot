@@ -1,5 +1,9 @@
 # CLEANER
 
+[![LangChain](https://img.shields.io/badge/LangChain-v1.2.10-blue)](https://github.com/langchain-ai/langchain)
+![TypeScript](https://img.shields.io/badge/TypeScript-Project-3178C6)
+![Status](https://img.shields.io/badge/status-experimental-orange)
+
 ### Cleanup Bot
 
 Autonomous wallet cleanup agent built on **LangChain v1.2.10**
@@ -28,31 +32,46 @@ Maintain wallet clarity in chaotic trading environments.
 
 CLEANER is structured as a modular agent system composed of three core components:
 
-Wallet Monitor → Event Detection → Cleanup Worker
+Wallet Monitor → Debris Classification → Cleanup Worker
 
 ### Wallet Monitor
+
 Continuously scans wallet activity and transaction history.
 
-Detects:
+Detects artifacts such as:
 
-- failed swaps
-- abandoned tokens
-- dust balances
-- incomplete transactions
+- failed swaps  
+- abandoned tokens  
+- dust balances  
+- incomplete transactions  
 
-### Event Detection
-Identifies wallet artifacts that qualify as cleanup targets.
+Wallet activity can be streamed through the transaction monitor.
 
-Events are classified and routed through the agent pipeline.
+---
+
+### Debris Classification
+
+Detected activity is analyzed and classified to determine whether it qualifies as wallet debris.
+
+Events may include:
+
+- failed swap artifacts  
+- abandoned token accounts  
+- dust balances  
+
+These events are passed to the cleanup worker.
+
+---
 
 ### Cleanup Worker
+
 Executes cleanup routines once debris is identified.
 
 Examples include:
 
-- consolidating dust tokens
-- removing abandoned token accounts
-- resolving failed transaction artifacts
+- consolidating dust tokens  
+- removing abandoned token accounts  
+- resolving failed transaction artifacts  
 
 ---
 
@@ -70,45 +89,62 @@ LangChain provides the orchestration layer for autonomous agent execution, enabl
 
 ## Project Structure
 
-```
-cleaner-agent
+```bash
+cleanup-bot
 │
 ├── README.md
 ├── LICENSE
 ├── .gitignore
 ├── package.json
+├── tsconfig.json
 ├── .env.example
 │
 ├── src
+│   ├── index.ts
+│   │
 │   ├── agent
-│   │   └── cleanerAgent.ts
+│   │   ├── cleanupBotAgent.ts
+│   │   └── agentLoop.ts
 │   │
 │   ├── monitor
-│   │   └── walletMonitor.ts
+│   │   ├── walletMonitor.ts
+│   │   └── transactionStream.ts
+│   │
+│   ├── analyzer
+│   │   └── debrisClassifier.ts
 │   │
 │   ├── cleanup
-│   │   └── cleanupWorker.ts
+│   │   ├── cleanupWorker.ts
+│   │   └── cleanupRoutines.ts
 │   │
-│   └── index.ts
+│   ├── config
+│   │   └── config.ts
+│   │
+│   └── utils
+│       ├── logger.ts
+│       └── types.ts
 │
 └── docs
-    └── architecture.md
+    ├── architecture.md
+    └── agent-flow.md
 ```
 
 ---
 
 ## Example Agent Flow
 
-```
-const agent = new CleanerAgent()
+```ts
+const agent = new CleanupBotAgent()
 
-await agent.run()
+await agent.start()
+```
 
 Execution flow:
 
+```text
 scan wallet activity
 ↓
-detect transactional debris
+classify wallet debris
 ↓
 execute cleanup routines
 ```
@@ -119,7 +155,7 @@ execute cleanup routines
 
 Create a `.env` file using the example template:
 
-```
+```env
 RPC_ENDPOINT=
 WALLET_ADDRESS=
 CLEANER_MODE=monitor
@@ -131,10 +167,10 @@ Configuration parameters allow the agent to connect to RPC providers and monitor
 
 ## Installation
 
-```
-git clone https://github.com/yourname/cleaner-agent
+```bash
+git clone https://github.com/yourname/cleanup-bot
 
-cd cleaner-agent
+cd cleanup-bot
 
 npm install
 ```
@@ -143,7 +179,7 @@ npm install
 
 ## Running the Agent
 
-```
+```bash
 npm run start
 ```
 
@@ -174,5 +210,3 @@ The project is under active development.
 ## License
 
 MIT License
-
-
