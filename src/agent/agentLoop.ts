@@ -1,5 +1,7 @@
 import { WalletMonitor } from "../monitor/walletMonitor";
 import { CleanupWorker } from "../cleanup/cleanupWorker";
+import { classifyDebris } from "../analyzer/debrisClassifier";
+import { WalletEvent } from "../utils/types";
 
 export class AgentLoop {
   constructor(
@@ -8,11 +10,19 @@ export class AgentLoop {
   ) {}
 
   async run() {
-    const events = await this.monitor.scan();
+    console.log("Starting monitoring pipeline");
+
+    const events: WalletEvent[] = await this.monitor.scan();
 
     for (const event of events) {
-      if (event.type === "wallet_debris") {
+      const isDebris = classifyDebris(event.source);
+
+      if (isDebris) {
+        console.log("Debris detected:", event.source);
+
         await this.cleanup.execute(event);
+      } else {
+        console.log("Ignoring non-debris event:", event.source);
       }
     }
   }
