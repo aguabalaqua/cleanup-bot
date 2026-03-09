@@ -8,7 +8,7 @@
 
 Autonomous wallet cleanup agent built on **LangChain v1.2.10**
 
-CLEANER continuously monitors wallet activity and removes transactional debris generated during high-frequency trading.
+CLEANER continuously monitors wallet activity and removes transactional debris generated during high-frequency trading sessions.
 
 ---
 
