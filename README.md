@@ -161,7 +161,7 @@ WALLET_ADDRESS=
 CLEANER_MODE=monitor
 ```
 
-Configuration parameters allow the agent to connect to RPC providers and monitor wallet activity streams.
+Configuration parameters allow the agent to connect to your RPC providers and monitor wallet activity streams.
 
 ---
 
